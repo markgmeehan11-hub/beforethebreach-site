@@ -1,0 +1,38 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "library/files"
+public_folder: "/library/files"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: "site"
+    label: "Site Settings"
+    files:
+      - label: "Settings"
+        name: "settings"
+        file: "content/site.json"
+        fields:
+          - { label: "Stripe Payment Link", name: "stripe_link", widget: "string" }
+
+  - name: "resources"
+    label: "Library (Docs & Templates)"
+    files:
+      - label: "Resources List"
+        name: "resources_list"
+        file: "content/resources.json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Category", name: "category", widget: "select",
+                  options: ["Boardroom Briefings","Director Toolkits","Incident Governance","Policy & Regulator Watch","Glossary (Boardroom)"] }
+              - { label: "Access", name: "access", widget: "select",
+                  options: ["open","member","subscriber"], default: "member" }
+              - { label: "Abstract", name: "abstract", widget: "text" }
+              - { label: "URL (file in /library/files)", name: "url", widget: "string" }
+              - { label: "Updated", name: "updated", widget: "datetime" }

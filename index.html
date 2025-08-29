@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BeforeTheBreach.au — Board-Ready Cyber Governance</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;margin:40px;color:#0b1220;background:#f8fafc}
+    a{color:#0ea5e9;text-decoration:none} a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <h1>BeforeTheBreach.au</h1>
+  <p>Turn cyber risk into <em>governed</em> risk.</p>
+  <p><a href="/signin/">Sign in / Join</a> • <a href="/library/">Library</a> • <a href="/subscribe/">Subscribe</a></p>
+  <script>
+    // If an Identity invite token lands on the home page, open the signup flow
+    if (window.location.hash.includes('invite_token=') && window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', (u) => { if (!u) window.netlifyIdentity.open('signup'); });
+      window.netlifyIdentity.init();
+    }
+  </script>
+</body>
+</html>

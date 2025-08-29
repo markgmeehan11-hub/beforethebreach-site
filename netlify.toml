@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/library/files/*"
+  to = "/signin"
+  status = 302
+  force = true
+  conditions = { Role = ["public"] }
+
+[[headers]]
+  for = "/library/*"
+  [headers.values]
+    Cache-Control = "private, max-age=0, no-store"

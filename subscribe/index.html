@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Subscribe — BeforeTheBreach</title>
+  <style>body{font-family:system-ui,Segoe UI,Inter,Arial;margin:40px}</style>
+</head>
+<body>
+  <h1>Subscriber (Annual)</h1>
+  <p>Access all Director Toolkits, Incident Governance briefs and future updates for 12 months.</p>
+  <p><a id="stripe" href="#" style="padding:12px 18px;border:1px solid #000;border-radius:10px;text-decoration:none">Pay with credit card</a></p>
+  <p><small>For the pilot, we’ll add your subscriber role manually after checkout.</small></p>
+  <script>
+    fetch('/content/site.json?_=' + Date.now())
+      .then(r => r.json()).then(cfg => { document.getElementById('stripe').href = cfg.stripe_link || '#'; })
+      .catch(() => { document.getElementById('stripe').href = '#'; });
+  </script>
+</body>
+</html>

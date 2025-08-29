@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — BeforeTheBreach</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>body{font-family:system-ui,Segoe UI,Inter,Arial;margin:40px}</style>
+</head>
+<body>
+  <h1>Sign in / Join</h1>
+  <p>Members get access to the Library. Paid subscribers get all templates & board packs.</p>
+  <p>
+    <button onclick="netlifyIdentity.open('login')">Sign in</button>
+    <button onclick="netlifyIdentity.open('signup')">Join</button>
+  </p>
+  <script>
+    netlifyIdentity.on('login', () => window.location.href = '/library/');
+    netlifyIdentity.init();
+  </script>
+</body>
+</html>

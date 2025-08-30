@@ -19,19 +19,50 @@
   <p class="muted">Access depends on your role: open • member • subscriber.</p>
   <div id="list" class="grid"></div>
 </div>
+
 <script>
-  let roles=['public'];
-  const ok = (a)=> a==='open' || (a==='member' && roles.some(r=>['member','subscriber','enterprise'].includes(r))) || (a==='subscriber' && roles.some(r=>['subscriber','enterprise'].includes(r)));
-  function render(data){
-    const list=document.getElementById('list'); list.innerHTML='';
-    (data.items||[]).forEach(it=>{
-      if(!ok(it.access)) return;
+  let roles = ['public'];
+
+  function hasAny(target){ return roles.some(r => target.includes(r)); }
+  function canSee(access){
+    return access === 'open' ||
+      (access === 'member' && hasAny(['member','subscriber','enterprise'])) ||
+      (access === 'subscriber' && hasAny(['subscriber','enterprise']));
+  }
+
+  function render(items){
+    const list = document.getElementById('list'); list.innerHTML='';
+    (items||[]).forEach(it=>{
+      if(!canSee(it.access)) return;
       const el=document.createElement('div'); el.className='card';
-      el.innerHTML='<strong>'+it.title+'</strong><br><span class="muted">'+it.category+' • '+(it.updated||'')+'</span><p>'+it.abstract+'</p><p><a href="'+it.url+'">Download</a></p>';
+      el.innerHTML =
+        '<strong>'+it.title+'</strong><br>' +
+        '<span class="muted">'+it.category+' • '+(it.updated||'')+'</span>' +
+        '<p>'+it.abstract+'</p>' +
+        '<p><a href="'+it.url+'">Download</a></p>';
       list.appendChild(el);
     });
   }
-  netlifyIdentity.on('init',u=>{ if(u&&u.app_metadata) roles=u.app_metadata.roles||['public']; fetch('/content/resources.json?_='+Date.now()).then(r=>r.json()).then(render); });
+
+  function updateRolesFrom(user){
+    roles = ['public'];
+    if (user && user.app_metadata && Array.isArray(user.app_metadata.roles)) {
+      roles = user.app_metadata.roles.map(String);
+    }
+  }
+
+  function loadData(){
+    fetch('/content/resources.json?_=' + Date.now())
+      .then(r => r.json())
+      .then(data => render(data.items))
+      .catch(() => { document.getElementById('list').innerHTML = '<p>Could not load resources list.</p>'; });
+  }
+
+  // Initialise and re-render on session changes
+  netlifyIdentity.on('init',  (user) => { updateRolesFrom(user); loadData(); });
+  netlifyIdentity.on('login', (user) => { updateRolesFrom(user); loadData(); });
+  netlifyIdentity.on('logout',() => { roles=['public']; loadData(); });
+
   netlifyIdentity.init();
 </script>
 </body>

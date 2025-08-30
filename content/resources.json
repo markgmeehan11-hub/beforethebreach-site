@@ -15,6 +15,14 @@
       "abstract": "Board-cycle structure: threats, incidents, readiness, metrics, appetite, forward look.",
       "url": "/library/files/ciso-board-pack-template.pdf",
       "updated": "2025-08-29"
+    },
+    {
+      "access": "subscriber",
+      "title": "Third-Party Cyber Risk Review (Template)",
+      "category": "Director Toolkits",
+      "url": "/library/files/third-party-cyber-risk-review-template.pdf",
+      "abstract": "Vendor inventory + minimum controls + assurance + continuity/exit checks, ready for board packs.",
+      "updated": "2025-08-30T14:11:00.000+10:00"
     }
   ]
 }

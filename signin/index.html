@@ -9,13 +9,16 @@
 </head>
 <body>
   <h1>Sign in / Join</h1>
-  <p>Members get access to the Library. Paid subscribers get all templates & board packs.</p>
+  <p>Members get Library access. Subscribers get all toolkits & board packs.</p>
   <p>
     <button onclick="netlifyIdentity.open('login')">Sign in</button>
     <button onclick="netlifyIdentity.open('signup')">Join</button>
   </p>
   <script>
+    // Accept invites automatically when a token is present
+    const hasInvite = window.location.hash.includes('invite_token=');
     netlifyIdentity.on('login', () => window.location.href = '/library/');
+    if (hasInvite) netlifyIdentity.on('init', u => { if (!u) netlifyIdentity.open('signup'); });
     netlifyIdentity.init();
   </script>
 </body>

@@ -3,7 +3,7 @@
     {
       "title": "5 Cyber Questions Every Director Must Ask",
       "category": "Director Toolkits",
-      "access": "open",
+      "access": "member",
       "abstract": "A one-pager directors can take into the next meeting. No jargon; what a good answer sounds like.",
       "url": "/library/files/5-cyber-questions.pdf",
       "updated": "2025-08-29"
@@ -15,6 +15,30 @@
       "abstract": "Board-cycle structure: threats, incidents, readiness, metrics, appetite, forward look.",
       "url": "/library/files/ciso-board-pack-template.pdf",
       "updated": "2025-08-29"
+    },
+    {
+      "access": "subscriber",
+      "title": "Third-Party Cyber Risk Review (Template)",
+      "category": "Director Toolkits",
+      "url": "/library/files/third-party-cyber-risk-review-template.pdf",
+      "abstract": "Vendor inventory + minimum controls + assurance + continuity/exit checks, ready for board packs.",
+      "updated": "2025-08-30T14:11:00.000+10:00"
+    },
+    {
+      "access": "subscriber",
+      "title": "Ransomware – Director’s Governance Brief",
+      "category": "Incident Governance",
+      "abstract": "First 48 hours: decision rights, regulator notifications, data/ops trade-offs, and comms.",
+      "url": "/library/files/ransomware-directors-governance-brief.pdf",
+      "updated": "2025-08-30T14:14:00.000+10:00"
+    },
+    {
+      "access": "member",
+      "title": "Glossary (Boardroom) – 100 Plain-English Terms",
+      "category": "Glossary (Boardroom)",
+      "url": "/library/files/boardroom-cyber-glossary.pdf",
+      "abstract": "No-jargon definitions directors can quote in the minute book.",
+      "updated": "2025-08-30T14:15:00.000+10:00"
     }
   ]
 }

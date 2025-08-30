@@ -47,10 +47,10 @@
   function updateRolesFrom(user){
     roles = ['public'];
     if (user && user.app_metadata && Array.isArray(user.app_metadata.roles)) {
-      roles = user.app_metadata.roles.map(String);
+      roles = user.app_metadata.roles.map(r => String(r).toLowerCase());
     }
   }
-
+  
   function loadData(){
     fetch('/content/resources.json?_=' + Date.now())
       .then(r => r.json())

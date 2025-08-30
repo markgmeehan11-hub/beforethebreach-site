@@ -8,8 +8,6 @@
   <style>
     body{font-family:system-ui,Segoe UI,Inter,Arial;margin:20px;background:#f8fafc}
     .wrap{max-width:1000px;margin:0 auto}
-    .cats{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-    .pill{border:1px solid #cbd5e1;border-radius:999px;padding:6px 10px;background:#fff}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
     .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px}
     .muted{color:#64748b}
@@ -18,57 +16,22 @@
 <body>
 <div class="wrap">
   <h1>Library</h1>
-  <p class="muted">Boardroom Briefings • Director Toolkits • Incident Governance • Policy & Regulator Watch • Glossary (Boardroom)</p>
-  <div id="gate" class="muted">Checking access…</div>
-  <div id="filters" class="cats" style="display:none">
-    <span>Filter:</span>
-    <button class="pill" onclick="filterCat('All')">All</button>
-    <button class="pill" onclick="filterCat('Boardroom Briefings')">Boardroom Briefings</button>
-    <button class="pill" onclick="filterCat('Director Toolkits')">Director Toolkits</button>
-    <button class="pill" onclick="filterCat('Incident Governance')">Incident Governance</button>
-    <button class="pill" onclick="filterCat('Policy & Regulator Watch')">Policy & Regulator Watch</button>
-    <button class="pill" onclick="filterCat('Glossary (Boardroom)')">Glossary (Boardroom)</button>
-  </div>
-  <div id="list" class="grid" style="display:none"></div>
+  <p class="muted">Access depends on your role: open • member • subscriber.</p>
+  <div id="list" class="grid"></div>
 </div>
-
 <script>
-  let userRoles = ['public'];
-  function hasRole(roles){ return roles.some(r => userRoles.includes(r)); }
-
-  function render(items){
-    const list = document.getElementById('list');
-    list.innerHTML='';
-    items.forEach(it => {
-      const ok = it.access === 'open'
-        ? true
-        : (it.access === 'member' && hasRole(['member','subscriber','enterprise']))
-          || (it.access === 'subscriber' && hasRole(['subscriber','enterprise']));
-      if(!ok) return;
-      const el = document.createElement('div');
-      el.className='card';
-      el.innerHTML = '<strong>'+it.title+'</strong><br><span class="muted">'+it.category+' • '+(it.updated || '')+'</span><p>'+it.abstract+'</p><p><a href="'+it.url+'">Download</a></p>';
+  let roles=['public'];
+  const ok = (a)=> a==='open' || (a==='member' && roles.some(r=>['member','subscriber','enterprise'].includes(r))) || (a==='subscriber' && roles.some(r=>['subscriber','enterprise'].includes(r)));
+  function render(data){
+    const list=document.getElementById('list'); list.innerHTML='';
+    (data.items||[]).forEach(it=>{
+      if(!ok(it.access)) return;
+      const el=document.createElement('div'); el.className='card';
+      el.innerHTML='<strong>'+it.title+'</strong><br><span class="muted">'+it.category+' • '+(it.updated||'')+'</span><p>'+it.abstract+'</p><p><a href="'+it.url+'">Download</a></p>';
       list.appendChild(el);
     });
   }
-
-  let allItems = [];
-  function filterCat(cat){
-    const items = (cat==='All') ? allItems : allItems.filter(i => i.category===cat);
-    render(items);
-  }
-
-  netlifyIdentity.on('init', (user) => {
-    userRoles = ['public'];
-    if(user && user.app_metadata && user.app_metadata.roles){ userRoles = user.app_metadata.roles; }
-    document.getElementById('gate').style.display='none';
-    document.getElementById('filters').style.display='flex';
-    document.getElementById('list').style.display='grid';
-    fetch('/content/resources.json?_=' + Date.now())
-      .then(r => r.json())
-      .then(data => { allItems = data.items || []; filterCat('All'); })
-      .catch(() => { document.getElementById('list').innerHTML = '<p>Could not load resources list.</p>'; });
-  });
+  netlifyIdentity.on('init',u=>{ if(u&&u.app_metadata) roles=u.app_metadata.roles||['public']; fetch('/content/resources.json?_='+Date.now()).then(r=>r.json()).then(render); });
   netlifyIdentity.init();
 </script>
 </body>

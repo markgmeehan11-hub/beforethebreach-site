@@ -1,3 +1,11 @@
+# Exemption: allow this specific lead magnet to be downloaded by the public
+[[redirects]]
+  from = "/library/files/au-ransom-policy-explainer.pdf"
+  to = "/library/files/au-ransom-policy-explainer.pdf"
+  status = 200
+  force = true
+
+# Gate everything else in /library/files for public users
 [[redirects]]
   from = "/library/files/*"
   to = "/signin"

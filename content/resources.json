@@ -23,6 +23,14 @@
       "url": "/library/files/third-party-cyber-risk-review-template.pdf",
       "abstract": "Vendor inventory + minimum controls + assurance + continuity/exit checks, ready for board packs.",
       "updated": "2025-08-30T14:11:00.000+10:00"
+    },
+    {
+      "access": "subscriber",
+      "title": "Ransomware – Director’s Governance Brief",
+      "category": "Incident Governance",
+      "abstract": "First 48 hours: decision rights, regulator notifications, data/ops trade-offs, and comms.",
+      "url": "/library/files/ransomware-directors-governance-brief.pdf",
+      "updated": "2025-08-30T14:14:00.000+10:00"
     }
   ]
 }

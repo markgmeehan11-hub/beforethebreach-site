@@ -4,22 +4,54 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sign in — BeforeTheBreach</title>
+  <!-- Load Netlify Identity widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <style>body{font-family:system-ui,Segoe UI,Inter,Arial;margin:40px}</style>
+  <style>
+    body{font-family:system-ui,Segoe UI,Inter,Arial;margin:40px}
+    button{padding:6px 10px}
+    #msg{color:#555;margin-top:10px}
+  </style>
 </head>
 <body>
   <h1>Sign in / Join</h1>
   <p>Members get Library access. Subscribers get all toolkits & board packs.</p>
   <p>
-    <button onclick="netlifyIdentity.open('login')">Sign in</button>
-    <button onclick="netlifyIdentity.open('signup')">Join</button>
+    <button id="btn-login"  type="button">Sign in</button>
+    <button id="btn-join"   type="button">Join</button>
   </p>
+  <p id="msg"></p>
+
   <script>
-    // Accept invites automatically when a token is present
-    const hasInvite = window.location.hash.includes('invite_token=');
-    netlifyIdentity.on('login', () => window.location.href = '/library/');
-    if (hasInvite) netlifyIdentity.on('init', u => { if (!u) netlifyIdentity.open('signup'); });
-    netlifyIdentity.init();
+    // Helper: wait until the widget is available before wiring buttons
+    function ready(fn){ document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn); }
+    ready(function () {
+      var msg = document.getElementById('msg');
+
+      function initIdentity(){
+        if (!window.netlifyIdentity) {
+          msg.textContent = "Loading sign-in… If nothing appears, reload or try an incognito window.";
+          return false;
+        }
+        // When user logs in, send them to the Library
+        netlifyIdentity.on('login', function(){ window.location.href = '/library/'; });
+
+        // If arriving with an invite token, open signup automatically
+        if (window.location.hash.indexOf('invite_token=') !== -1) {
+          netlifyIdentity.on('init', function(u){ if (!u) netlifyIdentity.open('signup'); });
+        }
+
+        // Wire buttons
+        document.getElementById('btn-login').onclick = function(){ netlifyIdentity.open('login'); };
+        document.getElementById('btn-join').onclick  = function(){ netlifyIdentity.open('signup'); };
+
+        netlifyIdentity.init();
+        msg.textContent = "";
+        return true;
+      }
+
+      // Try immediately; if the widget isn't ready yet, try again shortly
+      if (!initIdentity()) { setTimeout(initIdentity, 600); }
+    });
   </script>
 </body>
 </html>

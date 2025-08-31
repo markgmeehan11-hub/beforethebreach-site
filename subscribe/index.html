@@ -4,17 +4,64 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Subscribe — BeforeTheBreach</title>
-  <style>body{font-family:system-ui,Segoe UI,Inter,Arial;margin:40px}</style>
+  <meta name="description" content="Annual subscription for director toolkits, governance briefs and templates." />
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial,sans-serif;margin:40px;color:#0b1220;background:#f8fafc}
+    a{color:#0ea5e9;text-decoration:none} a:hover{text-decoration:underline}
+    .wrap{max-width:900px;margin:0 auto}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;margin-top:16px}
+    ul{margin:0 0 0 22px}
+    .btn{display:inline-block;padding:12px 18px;border:1px solid #0b1220;border-radius:10px;text-decoration:none}
+    .muted{color:#64748b}
+  </style>
 </head>
 <body>
+<div class="wrap">
   <h1>Subscriber (Annual)</h1>
-  <p>Access all Director Toolkits, Incident Governance briefs and updates for 12 months.</p>
-  <p><a id="stripe" href="#" style="padding:12px 18px;border:1px solid #000;border-radius:10px;text-decoration:none">Pay with credit card</a></p>
-  <p><small>During the pilot, we’ll add your subscriber role manually after checkout.</small></p>
-  <script>
-    fetch('/content/site.json?_=' + Date.now())
-      .then(r => r.json()).then(cfg => { document.getElementById('stripe').href = cfg.stripe_link || '#'; })
-      .catch(() => { document.getElementById('stripe').href = '#'; });
-  </script>
+  <p class="muted">Board-ready toolkits, templates and governance briefs for directors.</p>
+
+  <div class="card">
+    <h2>What you get</h2>
+    <ul>
+      <li>Full access to Director Toolkits and Incident Governance briefs</li>
+      <li>All updates and new releases for 12 months</li>
+      <li>Plain-English board notes and one-pagers</li>
+      <li>Practical templates (briefing packs, third-party risk, ransomware)</li>
+      <li>Version history so you know what changed</li>
+      <li>Priority support (email)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>How access works (pilot)</h2>
+    <ol>
+      <li>Pay with credit card via Stripe</li>
+      <li>We activate your <em>subscriber</em> role manually (same day in most cases)</li>
+      <li>Sign in at <a href="/signin/">/signin</a>, then download from the <a href="/library/">Library</a></li>
+    </ol>
+    <p><a id="stripe" class="btn" href="#">Pay with credit card</a></p>
+    <p class="muted">Prefer an invoice first? Use the <a href="/contact/">contact form</a>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Fair use</h2>
+    <p>Single-seat licence for the named subscriber. For team access or board packs, <a href="/contact/">contact us</a>.</p>
+  </div>
+
+  <div class="card">
+    <h2>FAQs</h2>
+    <p><strong>Invoice/ABN?</strong> Yes — reply to the Stripe receipt and we’ll issue a tax invoice with ABN.</p>
+    <p><strong>Can I cancel?</strong> Annual plan; cancel anytime to stop renewal.</p>
+    <p><strong>Enterprise or multiple seats?</strong> We can set up a team plan.</p>
+  </div>
+</div>
+
+<script>
+  // Load Stripe payment link from editable settings
+  fetch('/content/site.json?_=' + Date.now())
+    .then(r => r.ok ? r.json() : { stripe_link: '#' })
+    .then(cfg => { document.getElementById('stripe').href = (cfg && cfg.stripe_link) || '#'; })
+    .catch(() => { document.getElementById('stripe').href = '#'; });
+</script>
 </body>
 </html>

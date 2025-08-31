@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — BeforeTheBreach</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial,sans-serif;margin:40px;color:#0b1220;background:#f8fafc}
+    .wrap{max-width:700px;margin:0 auto}
+    label{display:block;margin:12px 0 6px}
+    input,select,textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px;background:#fff}
+    button{margin-top:14px;padding:12px 18px;border:1px solid #0b1220;border-radius:10px;background:#fff;cursor:pointer}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Contact</h1>
+  <p>Media, engagements, board advisory or support — send us a note.</p>
+
+  <form name="contact" method="POST" data-netlify="true">
+    <input type="hidden" name="form-name" value="contact" />
+    <label for="name">Name</label>
+    <input id="name" name="name" required />
+
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required />
+
+    <label for="purpose">Purpose</label>
+    <select id="purpose" name="purpose" required>
+      <option value="">Please select…</option>
+      <option>Media</option>
+      <option>Engagement</option>
+      <option>Advisory</option>
+      <option>Support</option>
+      <option>Other</option>
+    </select>
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="6" required></textarea>
+
+    <button type="submit">Send</button>
+  </form>
+</div>
+</body>
+</html>

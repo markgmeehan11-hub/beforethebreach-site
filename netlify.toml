@@ -21,3 +21,9 @@
   for = "/library/files/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+# Don't let search engines index or cache raw downloads
+[[headers]]
+  for = "/library/files/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Cache-Control = "private, max-age=0, no-store"

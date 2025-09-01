@@ -17,3 +17,7 @@
   for = "/library/*"
   [headers.values]
     Cache-Control = "private, max-age=0, no-store"
+[[headers]]
+  for = "/library/files/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

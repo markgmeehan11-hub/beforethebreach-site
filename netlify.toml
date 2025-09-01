@@ -13,17 +13,22 @@
   force = true
   conditions = { Role = ["public"] }
 
+# Cache control for Library pages
 [[headers]]
   for = "/library/*"
   [headers.values]
     Cache-Control = "private, max-age=0, no-store"
-[[headers]]
-  for = "/library/files/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-# Don't let search engines index or cache raw downloads
+
+# Keep raw downloads out of search + caches
 [[headers]]
   for = "/library/files/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow, noarchive"
     Cache-Control = "private, max-age=0, no-store"
+
+# Stripe → Netlify Function endpoint
+[[redirects]]
+  from = "/stripe/webhook"
+  to   = "/.netlify/functions/stripe-webhook"
+  status = 200
+  force = true

@@ -1,0 +1,9 @@
+{
+  "name": "beforethebreach-site",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
